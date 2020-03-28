@@ -89,8 +89,8 @@ function GlobalPositions:AddServerEntity(inst)
 		classified.parentuserid:set(inst.parentuserid or "nil")
 	end
 	
-	local player = nil
-	for k,v in pairs(TheNet:GetClientTable()) do
+	local player
+	for _,v in pairs(TheNet:GetClientTable()) do
 		if v.userid == classified.userid:value() or v.userid == classified.parentuserid:value() then
 			player = v
 		end
@@ -116,15 +116,6 @@ function GlobalPositions:AddServerEntity(inst)
 	return classified
 end
 
-function GlobalPositions:RemoveServerEntity(inst)
-	if shouldShowIndicator(self.positions[inst.GUID])
-	and ThePlayer and ThePlayer.userid ~= inst.userid and ThePlayer.HUD then
-		ThePlayer.HUD:RemoveTargetIndicator(self.positions[inst.GUID])
-	end
-	self.positions[inst.GUID]:Remove()
-	self.positions[inst.GUID] = nil
-end
-
 function GlobalPositions:AddClientEntity(inst)
 	self.positions[inst.GUID] = inst
 	local pingcolour = pingcolours[inst.parentprefab:value()]
@@ -137,7 +128,7 @@ function GlobalPositions:AddClientEntity(inst)
 	local prefabname = inst.parentprefab:value()
 	inst.playercolour = pingcolour or (player and player.colour or inst.playercolour)
 	inst.name = (not pingcolour and player) and player.name
-		or STRINGS.NAMES[prefabname:upper()] or inst.parentprefab:value()
+			or STRINGS.NAMES[prefabname:upper()] or inst.parentprefab:value()
 	if pingcolour then
 		inst.name = inst.name .. "\n(" .. inst.parentname:value() ..")"
 	end
@@ -153,6 +144,15 @@ function GlobalPositions:AddClientEntity(inst)
 		end
 		self.positions[inst.GUID] = nil
 	end
+end
+
+function GlobalPositions:RemoveServerEntity(inst)
+	if shouldShowIndicator(self.positions[inst.GUID])
+	and ThePlayer and ThePlayer.userid ~= inst.userid and ThePlayer.HUD then
+		ThePlayer.HUD:RemoveTargetIndicator(self.positions[inst.GUID])
+	end
+	self.positions[inst.GUID]:Remove()
+	self.positions[inst.GUID] = nil
 end
 
 return GlobalPositions

@@ -1,5 +1,5 @@
 --The name of the mod displayed in the 'mods' screen.
-name = "全球定位"
+name = "    A全球定位(开发版)"
 --A description of the mod.
 description = "默认情况下，记分板打开时显示玩家箭头，全局显示小地图上的玩家图标，营火或炭火也显示相同的图标。"
 

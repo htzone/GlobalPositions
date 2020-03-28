@@ -16,9 +16,9 @@ local function fn()
 	
 	inst.parentprefab = net_string(inst.GUID, "prefab")
 	inst.parententity = net_entity(inst.GUID, "parent")
-	inst.userid = net_string(inst.GUID, "userid", "useriddirty")
 	inst.parentuserid = net_string(inst.GUID, "parentuserid")
 	inst.parentname = net_string(inst.GUID, "parentname")
+	inst.userid = net_string(inst.GUID, "userid", "useriddirty")
 	inst.portraitdirty = net_event(inst.GUID, "portraitdirty", "portraitdirty")
 	inst.UpdatePortrait = UpdatePortrait
 
